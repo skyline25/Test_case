@@ -1,0 +1,111 @@
+$widthDesktop: 1280px;
+$widthTablet: 768px;
+$widthMobile: 320px;
+
+@mixin width($widthValue,$parentElementWidth) {
+    width: $widthValue / $parentElementWidth *100%;
+}
+@mixin marginRight($marginValue,$parentElementWidth) {
+    margin-right: $marginValue / $parentElementWidth *100%;
+}
+@mixin marginLeft($marginValue,$parentElementWidth) {
+    margin-left: $marginValue / $parentElementWidth *100%;
+}
+@mixin widthImage($imageQuantity,$imageMarginValue,$parentElementWidth) {
+    $imageMargin: $imageMarginValue / $parentElementWidth * 100%;
+    width: (100% - $imageMargin * ($imageQuantity - 1)) / $imageQuantity;
+}
+.header{
+    height: 60px;
+    background: url('../images/image-00.png') center no-repeat;
+    background-size: cover;
+}
+.gallery__container {
+    width: $widthDesktop;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 30px;
+    font-size: 0;
+}
+.gallery__block {
+    display: inline-block;
+    @include marginRight(30px, $widthDesktop);
+    vertical-align: top;
+    img {
+        display: inline-block;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+.gallery__block_1 {
+    @include width(660px, $widthDesktop);
+    img {
+        @include widthImage(4, 20px, 660px);
+        @include marginRight(20px, 660px);
+        margin-bottom: 20px;
+        vertical-align: top;
+    }
+    img:nth-of-type(4n) {
+        margin-right: 0;
+    }
+}
+.gallery__block_2 {
+    float: left;
+    @include width(270px, $widthDesktop);
+    @include marginLeft(30px, $widthDesktop);
+}
+.gallery__block_3 {
+    @include width(230px, $widthDesktop);
+}
+@media (max-width: $widthTablet) {
+    .gallery__block_3,
+    .gallery__block_2 {
+        @include width(200px, $widthTablet);
+        @include marginRight(14px, $widthTablet);
+        @include marginLeft(15px, $widthTablet);
+    }
+    .gallery__block_1 {
+        float: right;
+        @include width(525px, $widthTablet);
+        @include marginRight(14px, $widthTablet);
+        img {
+            @include widthImage(3, 15px, 525px);
+            @include marginRight(15px, 525px);
+            margin-bottom: 30px;
+        }
+        img:nth-of-type(4n) {
+            @include marginRight(15px, 525px);
+        }
+        img:nth-of-type(3n) {
+            margin-right: 0;
+        }
+    }
+}
+@media (max-width: $widthMobile) {
+    .gallery__container {
+        padding-top: 20px;
+    }
+    .gallery__block_3,
+    .gallery__block_1,
+    .gallery__block_2 {
+        @include width(300px, $widthMobile);
+        @include marginRight(10px, $widthMobile);
+        @include marginLeft(10px, $widthMobile);
+    }
+    .gallery__block_1 {
+        img {
+            @include widthImage(2, 20px, 300px);
+            @include marginRight(20px, 300px);
+            margin-bottom: 20px;
+        }
+        img:nth-of-type(3n) {
+            @include marginRight(20px, 300px);
+        }
+        img:nth-of-type(2n) {
+            margin-right: 0;
+        }
+    }
+}
